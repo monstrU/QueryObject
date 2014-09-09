@@ -1,0 +1,19 @@
+﻿@model QueryObjectMvc.Models.AuthorModel
+@{
+    ViewBag.Title = "первая страница";
+}
+
+<h2>первая страница</h2>
+@if(Model!=null)
+{
+    <p>Найден пользовтаель с ником @Model.NickName</p>
+}
+@if (TempData.Count > 0)
+{
+    <p>
+        @foreach (var item in TempData)
+        {
+            <p>@item.Value</p>
+        }
+    </p>
+}

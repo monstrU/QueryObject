@@ -40,9 +40,7 @@ namespace QueryObjectMvc.Tests
             var author=authorQuery.Execute();
 
             Assert.IsNotNull(author);
-            Assert.Equals(author.NickName, CheckName);
-
-
+            Assert.AreEqual(author.NickName, CheckName);
         }
     }
 }

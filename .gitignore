@@ -3,3 +3,6 @@
 
 *.mdf
 *.ldf
+*.suo
+bin
+obj

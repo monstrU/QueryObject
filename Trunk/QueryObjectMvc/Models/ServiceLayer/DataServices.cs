@@ -1,37 +1,34 @@
-﻿using QueryObjectMvc.Contexts;
+﻿using System.Configuration;
+using QueryObjectMvc.Contexts;
 using QueryObjectMvc.Models;
 using QueryObjectMvc.Models.QueryObjects;
 using QueryObjectMvc.Models.ServiceLayer;
 
 namespace MvcExample.Models.ServiceLayer
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-
     public class DataServices : IDataServices
     {
-        
         public AuthorModel GetAuthor(string nickName)
         {
-            string connect = ConfigurationManager.ConnectionStrings["QueryObjectConnectionString"].ConnectionString;
-            var authorQuery = new AuthorByNickNameQuery(new QueryObjectContextDataContext(connect), nickName);
-            var author = authorQuery.Execute();
-            AuthorModel result=null;
-            if (author!=null)
+            var connect = ConfigurationManager.ConnectionStrings["QueryObjectConnectionString"].ConnectionString;
+            using (var context = new QueryObjectContextDataContext(connect))
             {
-                result = new AuthorModel()
-                {
-                    AuthorId = author.Id,
-                    Name = author.Name,
-                    NickName = author.NickName
-                };
-            }
+                var authorQuery = new AuthorByNickNameQuery(context, nickName);
 
-            return result;
+                var author = authorQuery.Execute();
+                AuthorModel result = null;
+                if (author != null)
+                {
+                    result = new AuthorModel
+                    {
+                        AuthorId = author.Id,
+                        Name = author.Name,
+                        NickName = author.NickName
+                    };
+                }
+
+                return result;
+            }
         }
     }
 }

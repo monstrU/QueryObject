@@ -4,11 +4,8 @@ using QueryObjectMvc.Contexts;
 
 namespace QueryObjectMvc.Interfaces
 {
-    public interface IStorage :IDisposable
+    public interface IStorage : IDisposable
     {
-     
-        IQueryable<Author> Authors { get; set; }
-        
-        
+        IQueryable<Author> Authors { get; }
     }
 }
